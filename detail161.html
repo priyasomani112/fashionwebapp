@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Product Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.product-page {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.product-image {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-details {
+    flex: 1;
+    max-width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-details h1 {
+    font-size: 2em;
+    margin: 0 0 10px;
+}
+
+.price {
+    color: #e74c3c;
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.description {
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+.sizes {
+    margin: 20px 0;
+}
+
+.sizes label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.sizes select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.measurement-scale {
+    margin: 20px 0;
+}
+
+.measurement-scale h2 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+}
+
+.measurement-scale table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.measurement-scale th,
+.measurement-scale td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.measurement-scale th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.actions {
+    margin-top: 30px;
+}
+
+.actions button {
+    padding: 15px 25px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.actions button#buy-now {
+    background-color: #e74c3c;
+}
+
+.actions button:hover {
+    background-color: #2980b9;
+}
+
+.actions button#buy-now:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .product-page {
+        flex-direction: column;
+    }
+
+    .product-image,
+    .product-details {
+        max-width: 100%;
+    }
+    
+}
+
+    </style>
+</head>
+<body>
+    <div class="product-page">
+        <div class="product-image">
+            <img src="active1.jpg" alt="Product Image">
+        </div>
+        <div class="product-details">
+            <h1>Product Name</h1>
+            <p class="price">$120</p>
+            <p class="description">This is a great product description that highlights the features of the clothing item.</p>
+            
+            <div class="sizes">
+                <label for="size">Size:</label>
+                <select id="size">
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                    <option value="xl">XL</option>
+                    <option value="xxl">XXL</option>
+                </select>
+            </div>
+
+            <div class="measurement-scale">
+                <h2>Measurement Scale</h2>
+                <table>
+                    <tr>
+                        <th>Size</th>
+                        <th>Chest (inches)</th>
+                        <th>Waist (inches)</th>
+                        <th>Hips (inches)</th>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>34-36</td>
+                        <td>28-30</td>
+                        <td>34-36</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>38-40</td>
+                        <td>32-34</td>
+                        <td>38-40</td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                        <td>42-44</td>
+                        <td>36-38</td>
+                        <td>42-44</td>
+                    </tr>
+                    <tr>
+                        <td>XL</td>
+                        <td>46-48</td>
+                        <td>40-42</td>
+                        <td>46-48</td>
+                    </tr>
+                    <tr>
+                        <td>XXL</td>
+                        <td>50-52</td>
+                        <td>44-46</td>
+                        <td>50-52</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="actions">
+            <a href="payment gateway.html" >   <button id="buy-now">Buy Now</button></a>
+                <button id="share-product">Share Product</button>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('buy-now').addEventListener('click', function() {
+    // Replace 'payment-gateway.html' with the actual URL of your payment gateway page
+    window.location.href = 'payment-gateway.html';
+});
+
+document.getElementById('share-product').addEventListener('click', function() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Check out this product!',
+            text: 'I found this great product, check it out!',
+            url: window.location.href
+        }).then(() => {
+            console.log('Thanks for sharing!');
+        }).catch((error) => {
+            console.error('Something went wrong sharing the product:', error);
+        });
+    } else {
+        alert('Share feature is not supported on your browser.');
+    }
+    
+});
+
+    </script>
+</body>
+</html>
