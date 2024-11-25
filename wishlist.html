@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="shop.css">
+</head>
+<style>
+    /* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.shopping {
+    display: flex;
+    align-items: center;
+}
+
+.shopping img {
+    width: 30px;
+    height: auto;
+}
+
+.shopping .quantity {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.item {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+}
+
+.listcard li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.checkout {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.closeShopping {
+    cursor: pointer;
+}
+
+.wishlistItems {
+    list-style-type: none;
+    padding: 0;
+}
+
+.wishlistItems li {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.wishlistItems li:last-child {
+    border-bottom: none;
+}
+
+.wishlistItems img {
+    width: 80px;
+    height: auto;
+    margin-right: 10px;
+}
+
+</style>
+<body>
+<div class="container">
+    <header>
+        <a href="index.html"><h1>Your Shopping Cart</h1></a>
+        <div class="shopping">
+            <img src="cart.jpg" alt="Shopping Cart" class="cart-icon">
+            <span class="quantity">0</span>
+        </div>
+    </header>
+    <div class="list"></div>
+</div>
+<div class="card">
+    <h1>Card</h1>
+    <ul class="listcard"></ul>
+    <div class="checkout"></div>
+    <div class="total">0</div>
+    <div class="closeShopping">Close</div>
+</div>
+<div class="wishlist">
+    <h1>Wishlist</h1>
+    <ul class="wishlistItems"></ul>
+</div>
+<script>
+    let openShopping = document.querySelector('.cart-icon');
+    let closeShopping = document.querySelector('.closeShopping');
+    let list = document.querySelector('.list');
+    let listCard = document.querySelector('.listcard');
+    let wishlistItems = document.querySelector('.wishlistItems');
+    let total = document.querySelector('.total');
+    let quantity = document.querySelector('.quantity');
+    let body = document.querySelector('body');
+    let listCards = [];
+    let wishlist = [];
+
+    openShopping.addEventListener('click', () => {
+        body.classList.toggle('active');
+    });
+
+    closeShopping.addEventListener('click', () => {
+        body.classList.remove('active');
+    });
+
+    let products = [
+        {
+            id: 1,
+            name: 'PRODUCT NAME 1',
+            image: 'https://assets.ajio.com/medias/sys_master/root/20231005/xSVr/651de8e9ddf77915191f1748/-473Wx593H-466668066-pink-MODEL.jpg',
+            price: 1600
+        },
+        {
+            id: 2,
+            name: 'PRODUCT NAME 2',
+            image: 'https://rukminim2.flixcart.com/image/850/1000/k5lcvbk0/bedsheet/b/g/h/0023-rajasthani-printed-jaipuri-double-bedsheet-with-2-pillow-original-imaeqg5vczygvfuq.jpeg?q=90&crop=false',
+            price: 1800
+        },
+        {
+            id: 3,
+            name: 'PRODUCT NAME 3',
+            image: 'https://m.media-amazon.com/images/I/81fUbaydXXL.AC_UF894,1000_QL80.jpg',
+            price: 1400
+        },
+        {
+            id: 4,
+            name: 'PRODUCT NAME 4',
+            image: 'https://m.media-amazon.com/images/I/81rSsU2jPcS.AC_UF894,1000_QL80.jpg',
+            price: 1500
+        },
+        {
+            id: 5,
+            name: 'PRODUCT NAME 5',
+            image: 'https://bellacasa.in/cdn/shop/files/bella-casa-fashion-retail-ltd-bedsheet-90-x-108-inch-blue-cotton-bella-casa-double-bedsheet-set-cotton-king-size-with-2-pillow-covers-floral-design-blue-colour-ethnic-collection-39425_7955f876-b628-4471-829e-caabea8053fa.jpg?v=1691746469&width=1080',
+            price: 1800
+        },
+        {
+            id: 6,
+            name: 'PRODUCT NAME 6',
+            image: 'https://rukminim2.flixcart.com/image/828/9999/kfeamq80-0/bedsheet/4/b/m/multicolour-bbyugf74r3-flat-vasu-clothing-original-imafvut6hntfhahy.jpeg?q=60&crop=false',
+            price: 1700
+        },
+    ];
+
+    function initApp() {
+        products.forEach((value, key) => {
+            let newDiv = document.createElement('div');
+            newDiv.classList.add('item');
+            newDiv.innerHTML = `
+                <img src="${value.image}" alt="${value.name}">
+                <div class="title">${value.name}</div>
+                <div class="price">${value.price.toLocaleString()}</div>
+                <button onclick="addToCart(${key})">Add to Cart</button>
+                <button onclick="addToWishlist(${key})">Add to Wishlist</button>
+            `;
+            list.appendChild(newDiv);
+        });
+    }
+
+    initApp();
+
+    function addToCart(key) {
+        if (listCards[key] == null) {
+            listCards[key] = products[key];
+            listCards[key].quantity = 1;
+        }
+        reloadCard();
+    }
+
+    function addToWishlist(key) {
+        wishlist.push(products[key]);
+        reloadWishlist();
+    }
+
+    function reloadWishlist() {
+        wishlistItems.innerHTML = '';
+        wishlist.forEach((value, key) => {
+            let newWishlistItem = document.createElement('li');
+            newWishlistItem.innerHTML = `
+                <div><img src="${value.image}" alt="${value.name}"></div>
+                <div>${value.name}</div>
+                <div>${value.price.toLocaleString()}</div>
+            `;
+            wishlistItems.appendChild(newWishlistItem);
+        });
+    }
+
+    function reloadCard() {
+        listCard.innerHTML = '';
+        let count = 0;
+        let totalPrice = 0;
+        listCards.forEach((value, key) => {
+            if (value != null) {
+                totalPrice += value.price * value.quantity;
+                count += value.quantity;
+
+                let newDiv = document.createElement('li');
+                newDiv.innerHTML = `
+                    <div><img src="${value.image}" alt="${value.name}"></div>
+                    <div>${value.name}</div>
+                    <div>${value.price.toLocaleString()}</div>
+                    <div>${value.quantity}</div>
+                    <div>
+                        <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
+                        <div class="count">${value.quantity}</div>
+                        <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
+                    </div>
+                `;
+                listCard.appendChild(newDiv);
+            }
+        });
+        total.innerText = totalPrice.toLocaleString();
+        quantity.innerText = count;
+    }
+
+    function changeQuantity(key, quantity) {
+        if (quantity <= 0) {
+            delete listCards[key];
+        } else {
+            listCards[key].quantity = quantity;
+        }
+        reloadCard();
+    }
+
+</script>
+</body>
+</html>

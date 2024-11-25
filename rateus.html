@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Website Rating</title>
+  <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .rating-container {
+    text-align: center;
+  }
+  
+  .rating-stars {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .star {
+    margin: 0 5px;
+  }
+  
+  .star:hover,
+  .star.active {
+    color: gold;
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="rating-container">
+    <h1>Rate our E-Commerse website:</h1>
+    <div class="rating-stars" id="rating-stars">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <p id="rating-message"></p>
+  </div>
+  <script src="rateus.js"></script>
+</body>
+</html>

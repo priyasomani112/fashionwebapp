@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="Number"]
+ 
+    {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      background-color: #40d50f;
+      color: #ffffff;
+      text-decoration: none;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background-color: #45a049;
+    } 
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form action="registration.php" method="POST">
+      <div class="form-group">
+        <label for="username">Name:</label>
+        <input type="text" name="username" placeholder="Enter name">
+      </div>
+     <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Enter Password">
+      </div>
+    
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email">
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" name="city" placeholder="Enter city name">
+      </div>
+      <div class="form-group">
+        <label for="number">Mob.Number:</label>
+       <input type="number" name="number" placeholders="Enter Number">
+      </div>
+      <!--<div class="form-group">,
+        <label for="Gender">Gender:</label>
+        <input type="radio" name="Gender" value="m">male
+        <input type="radio" name="Gender" value="f">Female
+      </div> -->
+      <button type="submit" value="submit" class="btn">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

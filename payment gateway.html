@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.payment-page {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.payment-page h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.payment-page p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.payment-methods {
+    margin-bottom: 30px;
+}
+
+.payment-option {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.payment-option:hover {
+    background-color: #2980b9;
+}
+
+.payment-form {
+    display: none;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.payment-form h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.payment-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.payment-form input,
+.payment-form select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.qr-code-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #ddd;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: #333;
+}
+img{
+    width: 150px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.payment-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.payment-form button:hover {
+    background-color: #c0392b;
+}
+
+    </style>
+</head>
+<body>
+    <div class="payment-page">
+        <h1>Payment Gateway</h1>
+        <p>Proceed with your payment.</p>
+
+        <div class="payment-methods">
+            <button class="payment-option" id="credit-card-btn">Credit Card</button>
+            <button class="payment-option" id="upi-btn">UPI</button>
+            <button class="payment-option" id="net-banking-btn">Net Banking</button>
+        </div>
+
+        <div id="payment-form-container">
+            <!-- Credit Card Form -->
+            <div id="credit-card-form" class="payment-form">
+                <h2>Credit Card Payment</h2>
+                <label for="cc-number">Card Number:</label>
+                <input type="text" id="cc-number" placeholder="1234 5678 9012 3456">
+                <label for="cc-name">Name on Card:</label>
+                <input type="text" id="cc-name" placeholder="John Doe">
+                <label for="cc-expiry">Expiry Date:</label>
+                <input type="text" id="cc-expiry" placeholder="MM/YY">
+                <label for="cc-cvv">CVV:</label>
+                <input type="text" id="cc-cvv" placeholder="123">
+                <button onclick="completePayment()">Complete Payment</button>
+            </div>
+
+            <!-- UPI Form -->
+            <div id="upi-form" class="payment-form">
+                <h2>UPI Payment</h2>
+                <label for="upi-id">UPI ID:</label>
+                <input type="text" id="upi-id" placeholder="example@upi">
+                <label for="upi-scanner">Scan QR Code:</label>
+                <div class="qr-code-placeholder"><img src="qrcode.jpg"></div>
+                <button onclick="completePayment()">Complete Payment</button>
+            </div>
+
+            <!-- Net Banking Form -->
+            <div id="net-banking-form" class="payment-form">
+                <h2>Net Banking</h2>
+                <label for="bank">Select Bank:</label>
+                <select id="bank">
+                    <option value="bank1">Bank 1</option>
+                    <option value="bank2">Bank 2</option>
+                    <option value="bank3">Bank 3</option>
+                    <option value="bank4">Bank 4</option>
+                </select>
+                <button onclick="completePayment()">Proceed to Bank</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('credit-card-btn').addEventListener('click', function() {
+    displayForm('credit-card-form');
+});
+
+document.getElementById('upi-btn').addEventListener('click', function() {
+    displayForm('upi-form');
+});
+
+document.getElementById('net-banking-btn').addEventListener('click', function() {
+    displayForm('net-banking-form');
+});
+
+function displayForm(formId) {
+    const forms = document.querySelectorAll('.payment-form');
+    forms.forEach(form => form.style.display = 'none');
+    document.getElementById(formId).style.display = 'block';
+}
+
+
+
+
+function completePayment() {
+    const paymentMethod = document.querySelector('.payment-form').id.split('-')[0];
+    const userId = 1;  // For testing, replace with actual logged-in user's ID
+    const amount = 100;  // Replace with actual amount
+
+    fetch('http://localhost:3000/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, amount, paymentMethod })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message === 'Payment successful') {
+            alert('Payment Completed!');
+            // Optionally, redirect to a confirmation page
+        } else {
+            alert('Payment failed. Please try again.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+    </script>
+</body>
+</html>

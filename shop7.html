@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .header {
+            height: 80px;
+            width: 100%;
+            background-color: goldenrod;
+            border-radius: 3px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .header .logo img {
+            width: 60px; /* Adjust the width of the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .cart {
+            display: flex;
+            background-color: rgb(255, 255, 255);
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 10px;
+            border-radius: 3px;
+            width: 80px;
+        }
+
+        .cart p {
+            height: 22px;
+            width: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: goldenrod;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        #root {
+            width: 60%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+
+        .sidebar {
+            width: 40%;
+            border-radius: 5px;
+            background-color: #eee;
+            margin-left: 20px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .head {
+            background-color: goldenrod;
+            border-radius: 3px;
+            height: 40px;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-items: center;
+  
+            
+        }
+
+        .foot {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 10px 0;
+            border-top: 1px solid #333;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid goldenrod;
+            border-radius: 5px;
+            padding: 15px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+            /* Apply fade-in animation */
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .img-box {
+            width: 100%;
+            height: 250px; /* Adjust the height of the image box */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .images {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+            /* Add transition for smooth scale */
+        }
+
+        .images:hover {
+            transform: scale(1.1);
+        }
+
+        .bottom {
+            margin-top: 20px;
+            width: 60%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 110px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: rgb(16, 14, 14);
+        }
+
+        button {
+            width: 100%;
+            position: relative;
+            border: none;
+            border-radius: 5px;
+            background-color: goldenrod;
+            padding: 7px 25px;
+            cursor: pointer;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: rgb(255, 255, 255);
+            border-bottom: 1px solid #aaa;
+            border-radius: 3px;
+            margin: 10px 10px;
+        }
+
+
+        .rowimg {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
+
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            border: 1px solid goldenrod;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+        }
+
+        .fa-trash:hover {
+            cursor: pointer;
+            color: #333;
+        }
+
+        .wishlist {
+            width: 45%;
+            position: relative;
+            border-radius: 5px;
+            background-color: #d5d3d3;
+            padding: 15px;
+            cursor: pointer;
+            color: rgb(22, 3, 3);
+            text-align: center;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wishlist h2 {
+            font-size: 20px;
+
+            margin-bottom: 10px;
+        }
+
+        .wishlist .wishlist-items {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            
+            
+        }
+
+        .wishlist-item img {      
+            border-radius: 50%;
+            margin-right: 10px;
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            border: 1px solid goldenrod;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-item p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .wishlist button {
+            width: 100%;
+            position: relative;
+            border: none;
+            border-radius: 5px;
+            background-color: goldenrod;
+            padding: 7px 25px;
+            cursor: pointer;
+            color: whitesmoke;
+            margin-top: 10px;
+        }
+
+        .wishlist button:hover {
+            background-color: #333;
+        }
+
+        .wishlist-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: red;
+            cursor: pointer;
+            animation: heartBeat 0.5s infinite alternate;
+            /* Heartbeat animation */
+        }
+
+        /* Heartbeat Animation */
+        @keyframes heartBeat {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <img src="logo.jpg">
+    </div>
+    
+    <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+</div>
+<div class="container">
+    <div id="root"></div>
+    <div class="sidebar">
+        <div class="head"><p>My Cart</p></div>
+        <div id="cartItem">Your cart is empty</div>
+        <div class="foot">
+            <h3>Total</h3>
+            <h2 id="total">$ 0.00</h2>
+        </div>
+    </div>
+    <div class="wishlist">
+        <h2>My Wishlist</h2>
+        <div id="wishlistItems">Your wishlist is empty</div>
+    </div>
+</div>
+<script>
+    const product = [
+        {
+            id: 0,
+            image: 'makeup1.jpg',
+            title: 'PRODUCT 1',
+            price: 120,
+            link: 'detail71.html#product1'
+        },
+        {
+            id: 1,
+            image: 'makeup2.jpg',
+            title: 'PRODUCT 2',
+            price: 60,
+            link: 'detail72.html#product1'
+        },
+        {
+            id: 2,
+            image: 'makeup3.jpg',
+            title: 'PRODUCT 3',
+            price: 230,
+            link: 'detail73.html#product1'
+        },
+        {
+            id: 3,
+            image: 'makeup4.jpg',
+            title: 'PRODUCT 4',
+            price: 100,
+            link: 'detail74.html#product1'
+        }
+    ];
+
+    const categories = [...product];
+    let cart = [];
+    let wishlist = [];
+
+    function addToWishlist(id) {
+        const productToAdd = categories.find(item => item.id === id);
+        const index = wishlist.findIndex(item => item.id === id);
+        if (index === -1) {
+            wishlist.push(productToAdd);
+        } else {
+            wishlist.splice(index, 1);
+        }
+        displayWishlist();
+    }
+
+    function displayWishlist() {
+        const wishlistContainer = document.getElementById('wishlistItems');
+        if (wishlist.length === 0) {
+            wishlistContainer.innerHTML = 'Your wishlist is empty';
+        } else {
+            wishlistContainer.innerHTML = wishlist.map(item => {
+                return `<div class='wishlist-item'>
+                            <i class="far fa-heart wishlist-icon" onclick="addToWishlist(${item.id})"></i>
+                            <img src='${item.image}' alt='${item.title}' class='wishlist-image'>
+                            <p>${item.title}</p>
+                        </div>`;
+            }).join('');
+        }
+    }
+
+    document.getElementById('root').innerHTML = categories.map(item => {
+        return `<div class='box'>
+                    <div class='img-box'>
+                        <a href='${item.link}'><img class='images' src='${item.image}'></a>
+                        <i class="far fa-heart wishlist-icon" onclick="addToWishlist(${item.id})"></i>
+                    </div>
+                    <div class='bottom'>
+                        <p>${item.title}</p>
+                        <h2>$ ${item.price}.00</h2>
+                        <button onclick='addToCart(${item.id})'>Add to cart</button>
+                    </div>
+                </div>`;
+    }).join('');
+
+    function addToCart(id) {
+        const productToAdd = categories.find(item => item.id === id);
+        cart.push(productToAdd);
+        displayCart();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        displayCart();
+    }
+
+    function displayCart() {
+        let total = 0;
+        const cartContainer = document.getElementById('cartItem');
+        const totalContainer = document.getElementById('total');
+        document.getElementById("count").innerHTML = cart.length;
+        
+        if (cart.length === 0) {
+            cartContainer.innerHTML = "Your cart is empty";
+            totalContainer.innerHTML = "$ " + total.toFixed(2);
+        } else {
+            cartContainer.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                totalContainer.innerHTML = "$ " + total.toFixed(2);
+                return `<div class='cart-item'>
+                            <div class='row-img'>
+                                <img class='rowimg' src=${item.image}>
+                            </div>
+                            <p style='font-size:20px;'>${item.title}</p>
+                            <h2 style='font-size: 15px;'>$ ${item.price}.00</h2>
+                            <i class='fa-solid fa-trash' onclick='removeFromCart(${index})'></i>
+                        </div>`;
+            }).join('');
+        }
+    }
+</script>
+</body>
+</html>
